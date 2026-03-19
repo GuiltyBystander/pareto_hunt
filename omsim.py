@@ -109,7 +109,7 @@ def is_legal(v, sol):
             reagents and
             products and
             track <= 1 and
-            (overlap == 0 or zlbb.puzzles[sol.puzzle_name]['type'] != 'PRODUCTION')
+            (overlap == 0 or zlbb.puzzles[sol.puzzle_name]['type'].casefold() != 'production')
             )
 
 
@@ -186,7 +186,7 @@ def get_metrics(sol):
             'mcLoop': 1,
         })
 
-    if zlbb.puzzles[sol.puzzle_name]['type'] == 'PRODUCTION':
+    if zlbb.puzzles[sol.puzzle_name]['type'].casefold() == 'production':
         metrics['mcHeight'] = None
         metrics['mcWidth'] = None
         metrics['mcBestagon'] = None
@@ -194,7 +194,7 @@ def get_metrics(sol):
         metrics['mcWidthInf'] = None
         metrics['mcBestagonInf'] = None
 
-    if zlbb.puzzles[sol.puzzle_name]['type'] != 'NORMAL':
+    if zlbb.puzzles[sol.puzzle_name]['type'].casefold() != 'normal':
         # we don't do width/bestagon on polymer or production
         metrics['mcWidth'] = None
         metrics['mcBestagon'] = None
