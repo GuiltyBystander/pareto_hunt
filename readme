@@ -3,7 +3,7 @@ If you're on Windows, it will automatically find your save folder.  Otherwise, y
 
 It's not very pretty, but it works. If people like this and I'm not too lazy, I might throw a better UI on it.
 
-To use run hunt.py and enter the number on the menu to do the action
+To use run hunt.py and enter the number on the menu to do the action, or pass the action number to hunt.py as an argument
 
 1. Rescan
     Counts up how many new files there are that need to be check/recheck
