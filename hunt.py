@@ -4,6 +4,7 @@ import math
 import os
 import platform
 import shutil
+import sys
 import time
 from solution import Solution
 import db
@@ -424,33 +425,36 @@ if __name__ == '__main__':
         bad_cache2 = check_cache(paretos, True)
         records = get_records()
 
-        print('---------- Menu ----------')
-        print(f'1. Rescan solutions ({len(local_stats["local"])} files found, {len(local_stats["db"])} tracked)')  # TODO: remove this
+        if len(sys.argv) > 1:
+            m = sys.argv[1]
+        else:
+            print('---------- Menu ----------')
+            print(f'1. Rescan solutions ({len(local_stats["local"])} files found, {len(local_stats["db"])} tracked)')  # TODO: remove this
 
-        proc = ', '.join([f'{len(local_stats[cat])} {cat}' for cat in ['new', 'update', 'delete', 'oversized'] if len(local_stats[cat]) > 0])
-        if proc == '':
-            proc = 'None'
-        print(f'2. Process ({proc})')
+            proc = ', '.join([f'{len(local_stats[cat])} {cat}' for cat in ['new', 'update', 'delete', 'oversized'] if len(local_stats[cat]) > 0])
+            if proc == '':
+                proc = 'None'
+            print(f'2. Process ({proc})')
 
-        # reports
-        print(f'3. Mismatched scores ({mismatch()})')
-        print(f'4. Duplicate scores ({duplicate_scores()})')
-        print(f'5. Duplicate names ({duplicate_names()})')
+            # reports
+            print(f'3. Mismatched scores ({mismatch()})')
+            print(f'4. Duplicate scores ({duplicate_scores()})')
+            print(f'5. Duplicate names ({duplicate_names()})')
 
-        # paretos:
-        print(f'6. Refresh leaderboard cache ({len(bad_cache)})')
-        print(f'7. Force leaderboard cache ({len(bad_cache2)})')
-        print(f'8. Pareto ({len(paretos)})')
-        # todo, make a mode that prioritizes solutions that kill existing paretos.  kind of hard with multiple manifolds though
+            # paretos:
+            print(f'6. Refresh leaderboard cache ({len(bad_cache)})')
+            print(f'7. Force leaderboard cache ({len(bad_cache2)})')
+            print(f'8. Pareto ({len(paretos)})')
+            # todo, make a mode that prioritizes solutions that kill existing paretos.  kind of hard with multiple manifolds though
 
-        print(f'9. Just records ({len(records)})')
+            print(f'9. Just records ({len(records)})')
 
-        # print('0. Process -> update cache -> report paretos')
+            # print('0. Process -> update cache -> report paretos')
 
-        print('x. Exit')
-        # todo, add overlap hermit mode warning
+            print('x. Exit')
+            # todo, add overlap hermit mode warning
 
-        m = input()
+            m = input()
         if m == '1':
             local_stats = scan_local()
         elif m == '2':
@@ -494,3 +498,6 @@ if __name__ == '__main__':
             zlbb.update_all()
         else:
             print('Unrecognized selection')
+
+        if len(sys.argv) > 1:
+            break
