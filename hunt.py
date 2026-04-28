@@ -182,8 +182,6 @@ ORDER BY puzzle_name, solution_name"""
                 file = os.path.basename(file)
                 print(f'    {file}, "{name}"')
 
-    if len(bads) == 0:
-        return 'None'
     return len(bads)
 
 
@@ -237,10 +235,12 @@ def record_string(record):
 
     if record[11] == 0:
         aLev = '∞'
-    if record[11] == 1:
+    elif record[11] == 1:
         aLev = "'"
-    if record[11] == 2:
+    elif record[11] == 2:
         aLev = "''"
+    else:
+        aLev = 'error'
 
     r = record  # lazy copy/paste
     fstr = f'{puzzle_name:25} {file:20} "{r[2]}"  {r[3]}g/{r[4]}c/{r[5]}a/{r[6]}i/{r[7]}h/{r[8]}w/{r[9]}b  {r[10]}r/{r[11]}A{aLev}/{r[13]}H∞/{r[14]}W∞/{r[15]}B∞  {flags}'

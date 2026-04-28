@@ -1,5 +1,6 @@
 import json
 import math
+import os
 import urllib.request
 
 import db
@@ -88,7 +89,24 @@ def get_puzzles():
     raw = urllib.request.urlopen(url).read().decode('utf-8')
     jj = json.loads(raw)
 
+    os.makedirs('puzzle', exist_ok=True)
+    for j in jj:
+        filename = os.path.join('puzzle', f'{j["id"]}.puzzle')
+        if not os.path.exists(filename):
+            print('Downloading puzzle', j['id'])
+            puzzle_url = f'https://zlbb.faendir.com/om/puzzle/{j["id"]}/file'
+            urllib.request.urlretrieve(puzzle_url, filename)
+
     return {j['id']: j for j in jj}
+
+
+def get_remap(puzzles):
+    remap = {}
+    for puz in puzzles.values():
+        if 'altIds' in puz:
+            for alt in puz['altIds']:
+                remap[alt] = puz['id']
+    return remap
 
 
 def get_categories():
@@ -179,5 +197,6 @@ def get_puzzle_name(puz):
 
 # todo: cache these locally?
 puzzles = get_puzzles()
+remap = get_remap(puzzles)
 categories = get_categories()
 manifold_sql = get_manifold_sql()

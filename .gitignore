@@ -3,5 +3,10 @@
 cache.db
 cache.db-journal
 lib/
+puzzle/
 pareto/
 record/
+
+build/
+dist/
+pareto_hunt.spec

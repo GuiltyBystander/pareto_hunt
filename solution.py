@@ -1,6 +1,10 @@
 import os
 import platform
 
+from zlbb import remap
+
+"""
+from zlbb import remap as zlbb_remap
 remap = {}
 # tournament 2019
 remap["week1"] = "w1611998067"
@@ -79,6 +83,16 @@ remap["OM2022Weeklies_NightmareFuel"] = "w2829050875"
 remap["OM2022Weeklies_IgnitionCord"] = "w2839120106"
 remap["OM2022Weeklies_Cuprite"] = "w2868328394"
 remap["OM2022Weeklies_LustrousSyrup"] = "w2868331650"
+
+print("in old, not new")
+for r in remap:
+    if r not in zlbb_remap:
+        print(f'{r} : {remap[r]}')
+print("in new, not old")
+for r in zlbb_remap:
+    if r not in remap:
+        print(f'{r} : {zlbb_remap[r]}')
+# """
 
 
 class Solution():

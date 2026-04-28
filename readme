@@ -28,4 +28,5 @@ To use run hunt.py and enter the number on the menu to do the action, or pass th
 Thanks to:
 panic for making omsim https://github.com/ianh/omsim, and providing the library for mac
 ieee12345 for providing the library for linux
-dinolord919 for helping me update to handle area@infinity
+dinolord919 for helping me update to handle area@infinity and changes to omsim
+fenhl for adding command line options
