@@ -97,7 +97,8 @@ def is_legal(v, sol):
     duplicate reagents +
     duplicate products +
     max(0, "maximum track gap^2" - 1) +
-    cabinet violations
+    cabinet violations +
+    "track self-overlap"
     """
 
     instruction = get_metric(v, b'instructions')
@@ -108,7 +109,9 @@ def is_legal(v, sol):
     reagents = not get_metric(v, b'duplicate reagents')
     products = not get_metric(v, b'duplicate products')
     track = get_metric(v, b'maximum track gap^2')
+    distance = get_metric(v, b'maximum absolute part coordinate')
     cabinet_violations = get_metric(v, b'cabinet violations')
+    track_self_overlap = get_metric(v, b'track self-overlap')
 
     err = lv.verifier_error(c_void_p(v))
     if err:
@@ -123,8 +126,9 @@ def is_legal(v, sol):
         reagents and
         products and
         track <= 1 and
-        # missing check for parts farther than 2^14 from origin are banned
-        cabinet_violations == 0
+        distance < 16384 and
+        cabinet_violations == 0 and
+        track_self_overlap == 0
     )
 
 

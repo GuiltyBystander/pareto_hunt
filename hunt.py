@@ -18,6 +18,7 @@ root_folders = []
 pp = []
 if platform.system() == 'Windows':
     pp.append(os.path.expanduser(r"~\Documents\My Games\Opus Magnum"))
+    pp.append(os.path.expanduser(r"~\OneDrive\Documents\My Games\Opus Magnum"))
 elif platform.system() == 'Darwin':
     pp.append(os.path.expanduser(r"~/Library/Application Support/Opus Magnum"))
 elif platform.system() == 'Linux':
@@ -28,7 +29,7 @@ for p in pp:  # yes, I'm great at picking variable names
     if os.path.isdir(p):
         for folder in os.listdir(p):
             full = os.path.join(p, folder)
-            if folder.isnumeric() and os.path.isdir(full):
+            if (folder == "Modded" or folder.isnumeric()) and os.path.isdir(full):
                 root_folders.append(full)
 
 print(root_folders)
